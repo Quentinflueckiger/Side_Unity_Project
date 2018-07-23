@@ -41,6 +41,10 @@ public class WorldInteraction : MonoBehaviour {
                 // To be changed, this will not be a click to move game.
                 interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
             }
+            else if (interactedObject.tag == "Enemy")
+            {
+                interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
+            }
             else
             {
 

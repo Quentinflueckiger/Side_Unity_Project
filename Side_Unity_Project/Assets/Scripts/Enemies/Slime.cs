@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : MonoBehaviour, IEnemy {
+public class Slime : Interactable, IEnemy {
 
     // To add later, our base stat system.
 

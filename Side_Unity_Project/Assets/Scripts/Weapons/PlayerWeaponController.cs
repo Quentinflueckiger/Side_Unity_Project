@@ -8,13 +8,15 @@ public class PlayerWeaponController : MonoBehaviour {
     public GameObject playerHand;
     public GameObject EquippedWeapon { get; set; }
 
+
+   Transform projectileSpawn;
     IWeapon equippedWeapon;
 
     CharacterStats characterStats;
 
     private void Start()
     {
-
+        projectileSpawn = transform.Find("ProjectileSpawn");
         characterStats = GetComponent<CharacterStats>();
     }
 
@@ -30,6 +32,9 @@ public class PlayerWeaponController : MonoBehaviour {
         EquippedWeapon = Instantiate(Resources.Load<GameObject>("Weapons/" + itemToEquip.ObjectSlug), playerHand.transform.position, playerHand.transform.rotation);
 
         equippedWeapon = EquippedWeapon.GetComponent<IWeapon>();
+
+        if(EquippedWeapon.GetComponent<IProjectileWeapon>() != null)
+            EquippedWeapon.GetComponent<IProjectileWeapon>().ProjectileSpawn = projectileSpawn;
 
         equippedWeapon.Stats = itemToEquip.Stats;
 
