@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class InventoryUIDetails : MonoBehaviour {
 
+    public Text statText;
+
     Item item;
     Button selectedItemButton, itemInteractButton;
     Text itemNameText, itemDescriptionText, itemInteractButtonText;
@@ -16,10 +18,23 @@ public class InventoryUIDetails : MonoBehaviour {
         itemDescriptionText = transform.Find("Item_Description").GetComponent<Text>();
         itemInteractButton = transform.Find("Button").GetComponent<Button>();
         itemInteractButtonText = itemInteractButton.transform.Find("Text").GetComponent<Text>();
+
+        RemoveItem();
     }
     
     public void SetItem(Item item, Button selectedButton)
     {
+
+        gameObject.SetActive(true);
+
+        statText.text = "";
+        if (item.Stats != null)
+        {
+            foreach(BaseStat stat in item.Stats)
+            {
+                statText.text += stat.StatName + ": " + stat.BaseValue + "\n";
+            }
+        }
 
         itemInteractButton.onClick.RemoveAllListeners();
 
@@ -46,5 +61,13 @@ public class InventoryUIDetails : MonoBehaviour {
             InventoryController.Instance.EquipItem(item);
             Destroy(selectedItemButton.gameObject);
         }
+
+        RemoveItem();
+    }
+
+    public void RemoveItem()
+    {
+        item = null;
+        gameObject.SetActive(false);
     }
 }
